@@ -178,12 +178,27 @@
 
                     var responseTime = ResponseTimeMeasure(startTime);
 
-                    tableRows += '<td class="' + CheckStatusBgcolor(xhr.status) + ' number">' + xhr.status + '</td>';
-                    tableRows += '<td class="number">' + responseTime + '</td>';
-                    tableRows += '<td>' + CharLenghtAdjustment(xhr.getAllResponseHeaders()) + ' </td>';
-                    tableRows += '<td>' + CharLenghtAdjustment(xhr.responseText) + '</td> </tr>';
-                    $(tableRows).appendTo('table tbody');
+                    try {
 
+                        tableRows += '<td class="' + CheckStatusBgcolor(xhr.status) + ' number">' + xhr.status + '</td>';
+                        tableRows += '<td class="number">' + responseTime + '</td>';
+                        tableRows += '<td>' + CharLenghtAdjustment(xhr.getAllResponseHeaders()) + ' </td>';
+                        tableRows += '<td>' + CharLenghtAdjustment(xhr.responseText) + '</td> </tr>';
+                        $(tableRows).appendTo('table tbody');
+
+                    }
+                    catch (e) {
+
+                        tableRows = '';
+
+                        tableRows += '<tr> <td>' + obj.name + '</td>';
+                        tableRows += '<td> <a href="' + obj.url + '" target="_blank" >' + CharLenghtAdjustment(obj.url) + '</a></td>';
+                        tableRows += '<td class="' + CheckStatusBgcolor(xhr.status) + ' number">' + xhr.status + '</td>';
+                        tableRows += '<td class="number">' + responseTime + '</td>';
+                        tableRows += '<td>error</td>';
+                        tableRows += '<td>error</td> </tr>';
+                        $(tableRows).appendTo('table tbody');
+                    }
                 },
                 success: function (data, status, xhr) {
 
